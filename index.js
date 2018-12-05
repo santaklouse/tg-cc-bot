@@ -28,7 +28,7 @@ if (!isInDevMode) {
     // Add URL of your app to env variable or enable Dyno Metadata
     // to get this automatically
     // See: https://devcenter.heroku.com/articles/dyno-metadata
-    const url = process.env.APP_URL || 'https://<app-name>.herokuapp.com:443';
+    const url = process.env.APP_URL || `https://${process.env.APP_NAME}.herokuapp.com:443`;
     // This informs the Telegram servers of the new webhook.
     // Note: we do not need to pass in the cert, as it already provided
     bot.setWebHook(`${url}/bot${TOKEN}`);
