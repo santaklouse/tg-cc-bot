@@ -4,7 +4,6 @@ var TelegramBot = require('node-telegram-bot-api');
 const isInDevMode = !!process.env.DEV_MODE;
 
 const TOKEN = process.env.TELEGRAM_TOKEN;
-var token = '738835687:AAHgrICAV5QjEhvlH0ZnTK_dDbE5uXolsxo';
 
 let options = {
     polling: isInDevMode,
