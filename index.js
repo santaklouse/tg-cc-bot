@@ -8,7 +8,6 @@ var token = '738835687:AAHgrICAV5QjEhvlH0ZnTK_dDbE5uXolsxo';
 
 let options = {
     polling: isInDevMode,
-
 };
 options.webHook = isInDevMode ? undefined : {
     // Port to which you should bind is assigned to $PORT variable
@@ -19,6 +18,10 @@ options.webHook = isInDevMode ? undefined : {
     // Also no need to pass IP because on Heroku you need to bind to 0.0.0.0
 };
 var bot = new TelegramBot(token, options);
+bot.getMe().then((me) => {
+    // bot.sendMessage(msg.chat.id, `test pong response: <b>${me}</b>`, {parse_mode: 'HTML'});
+    console.log(me);
+});
 
 if (!isInDevMode) {
     // Heroku routes from port :443 to $PORT
@@ -29,10 +32,18 @@ if (!isInDevMode) {
     // This informs the Telegram servers of the new webhook.
     // Note: we do not need to pass in the cert, as it already provided
     bot.setWebHook(`${url}/bot${TOKEN}`);
+    bot.on('webhook_error', (error) => {
+        console.log(`Webhook Error: ${error.code}`);  // => 'EPARSE'
+    });
+} else {
+    bot.on('polling_error', (error) => {
+        console.log(`Polling errors: ${error.code}`);  // => 'EFATAL'
+        console.log(error)
+    });
 }
 
 var notes = [];
-bot.onText(/\/remind (.+) в (.+)/, function(msg, match) {
+bot.onText(/\/remind (.+) at (.+)/, function(msg, match) {
     var userId = msg.from.id;
     var text = match[1];
     var time = match[2];
@@ -41,11 +52,16 @@ bot.onText(/\/remind (.+) в (.+)/, function(msg, match) {
         'time': time,
         'text': text
     });
-    bot.sendMessage(userId, 'Super! I\'ll definitely remind you if <b>wont dead</b>b> :)');
+    bot.sendMessage(userId, 'Super! I\'ll definitely remind you if <b>wont dead</b> >=|', {parse_mode: 'HTML'});
+});
+bot.onText(/\/time/, function(msg, match) {
+    var userId = msg.from.id;
+    var curDate = `${new Date().getHours()}:${new Date().getMinutes()}`;
+    bot.sendMessage(userId, curDate, {parse_mode: 'HTML'});
 });
 setInterval(function() {
     for (var i = 0; i < notes.length; i++) {
-        var curDate = new Date().getHours() + ':' + new Date().getMinutes();
+        var curDate = `${new Date().getHours()}:${new Date().getMinutes()}`;
         if (notes[i]['time'] == curDate) {
             bot.sendMessage(notes[i]['uid'], '<b>Remind:</b> \"' + notes[i]['text'] + '\" now.');
             notes.splice(i, 1);
@@ -54,6 +70,6 @@ setInterval(function() {
 }, 1000);
 
 // Just to ping!
-bot.on('message', function onMessage(msg) {
-    bot.sendMessage(msg.chat.id, 'I am alive on Heroku!');
+bot.on('message', function (msg) {
+    bot.sendMessage(msg.chat.id, `test pong response: <b>${msg.text}</b>`, {parse_mode: 'HTML'});
 });
