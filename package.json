@@ -18,7 +18,6 @@
   },
   "homepage": "https://github.com/santaklouse/tg-cc-bot#readme",
   "dependencies": {
-    "bluebird": "^3.5.3",
     "dotenv": "^6.1.0",
     "node-telegram-bot-api": "^0.30.0"
   }

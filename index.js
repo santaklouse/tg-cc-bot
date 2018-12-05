@@ -1,5 +1,4 @@
 require('dotenv').config();
-require('bluebird');
 var TelegramBot = require('node-telegram-bot-api');
 
 const isInDevMode = !!process.env.DEV_MODE;
