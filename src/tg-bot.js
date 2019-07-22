@@ -1,4 +1,5 @@
 require('dotenv').config();
+
 var TelegramBot = require('node-telegram-bot-api');
 
 const isInDevMode = !!process.env.DEV_MODE;
@@ -16,7 +17,8 @@ options.webHook = isInDevMode ? undefined : {
     // the SSL certs already (https://<app-name>.herokuapp.com)
     // Also no need to pass IP because on Heroku you need to bind to 0.0.0.0
 };
-var bot = new TelegramBot(token, options);
+let bot = new TelegramBot(TOKEN, options);
+
 bot.getMe().then((me) => {
     // bot.sendMessage(msg.chat.id, `test pong response: <b>${me}</b>`, {parse_mode: 'HTML'});
     console.log(me);
@@ -47,20 +49,22 @@ bot.onText(/\/remind (.+) at (.+)/, function(msg, match) {
     var text = match[1];
     var time = match[2];
     notes.push({
-        'uid': userId,
+        'uid': userId,chrome,
         'time': time,
         'text': text
     });
     bot.sendMessage(userId, 'Super! I\'ll definitely remind you if <b>wont dead</b> >=|', {parse_mode: 'HTML'});
 });
+
 bot.onText(/\/time/, function(msg, match) {
     var userId = msg.from.id;
     var curDate = `${new Date().getHours()}:${new Date().getMinutes()}`;
     bot.sendMessage(userId, curDate, {parse_mode: 'HTML'});
 });
+
 setInterval(function() {
-    for (var i = 0; i < notes.length; i++) {
-        var curDate = `${new Date().getHours()}:${new Date().getMinutes()}`;
+    for (let i = 0; i < notes.length; i++) {
+        let curDate = `${new Date().getHours()}:${new Date().getMinutes()}`;
         if (notes[i]['time'] == curDate) {
             bot.sendMessage(notes[i]['uid'], '<b>Remind:</b> \"' + notes[i]['text'] + '\" now.');
             notes.splice(i, 1);
@@ -72,3 +76,5 @@ setInterval(function() {
 bot.on('message', function (msg) {
     bot.sendMessage(msg.chat.id, `test pong response: <b>${msg.text}</b>`, {parse_mode: 'HTML'});
 });
+
+export default bot;

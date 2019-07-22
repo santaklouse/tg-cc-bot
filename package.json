@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "babel-node ./src/index.js",
     "test": "exit 0"
   },
   "repository": {
@@ -18,7 +18,27 @@
   },
   "homepage": "https://github.com/santaklouse/tg-cc-bot#readme",
   "dependencies": {
-    "dotenv": "^6.1.0",
-    "node-telegram-bot-api": "^0.30.0"
+    "assert": "^2.0.0",
+    "dotenv": "^6.2.0",
+    "ipfs": "^0.36.4",
+    "libp2p": "^0.24.2",
+    "libp2p-mplex": "^0.8.5",
+    "libp2p-secio": "^0.11.1",
+    "libp2p-spdy": "^0.13.1",
+    "libp2p-webrtc-star": "^0.15.6",
+    "libp2p-websocket-star": "^0.10.2",
+    "multiaddr": "^6.0.0",
+    "node-telegram-bot-api": "^0.30.0",
+    "peer-id": "^0.12.0",
+    "peer-info": "^0.15.0",
+    "pull-stream": "^3.6.9",
+    "wrtc": "^0.3.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/node": "^7.5.5",
+    "@babel/preset-env": "^7.2.3",
+    "nodemon": "^1.19.1"
   }
 }
