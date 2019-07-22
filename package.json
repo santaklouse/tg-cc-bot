@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "./node_modules/.bin/babel-node ./src/index.js",
+    "start": "node ./node_modules/@babel/node/bin/babel-node.js ./src/index.js",
     "test": "exit 0"
   },
   "repository": {
@@ -39,6 +39,6 @@
     "@babel/core": "^7.2.2",
     "@babel/node": "^7.5.5",
     "@babel/preset-env": "^7.2.3",
-    "nodemon": "^1.19.1"
+    "babel-cli": "^6.26.0"
   }
 }
