@@ -5,11 +5,12 @@
   "main": "index.js",
   "scripts": {
     "build": "npm run clean && npm run build-babel",
-    "start": "npm run build && node ./build/index.js",
+    "start": "node ./build/index.js",
     "clean": "rm -rf build && mkdir build",
     "build-babel": "babel -d ./build ./src -s",
     "test": "exit 0",
-    "postinstall": "npx babel ./src --out-dir ./lib"
+    "postinstall": "npm run build"
+//    "postinstall": "npx babel ./src --out-dir ./lib"
   },
   "repository": {
     "type": "git",
