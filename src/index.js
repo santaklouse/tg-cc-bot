@@ -33,9 +33,6 @@ node.once('start', (err) => {
 
 bot.onText(/\/ipfs status/, function(msg, match) {
     chatId = msg.from.id;
-    if (chatId) {
-        return chatId = null;
-    }
     node.stats.bw((err, stats) => {
         if (err) {
             app.log('An error occurred trying to check our stats:', err)
