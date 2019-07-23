@@ -1,1 +1,1 @@
-web: node ./node_modules/@babel/node/bin/babel-node.js ./src/index.js
+web: npx babel ./src --out-dir ./lib
