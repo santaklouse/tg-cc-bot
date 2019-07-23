@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./lib/index.js",
+    "build": "npm run clean && npm run build-babel",
+    "start": "npm run build && node ./build/index.js",
+    "clean": "rm -rf build && mkdir build",
+    "build-babel": "babel -d ./build ./src -s",
     "test": "exit 0",
     "postinstall": "npx babel ./src --out-dir ./lib"
   },
@@ -19,8 +22,8 @@
   },
   "homepage": "https://github.com/santaklouse/tg-cc-bot#readme",
   "dependencies": {
-    "@babel/polyfill": "^7.4.4",
     "assert": "^2.0.0",
+    "babel-preset-env": "^1.7.0",
     "dotenv": "^6.2.0",
     "ipfs": "^0.36.4",
     "libp2p": "^0.24.2",
@@ -37,11 +40,6 @@
     "wrtc": "^0.3.2"
   },
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.2.2",
-    "@babel/node": "^7.5.5",
-    "@babel/preset-env": "^7.2.3",
-    "@babel/runtime": "^7.5.5",
     "babel-cli": "^6.26.0"
   }
 }
