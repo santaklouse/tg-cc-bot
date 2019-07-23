@@ -10,7 +10,6 @@
     "build-babel": "babel -d ./build ./src -s",
     "test": "exit 0",
     "postinstall": "npm run build"
-//    "postinstall": "npx babel ./src --out-dir ./lib"
   },
   "repository": {
     "type": "git",
