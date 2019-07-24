@@ -31,7 +31,7 @@ node.once('start', (err) => {
     })
     .on('stop', () => app.log('Node stopped!'));
 
-bot.onText(/\/ipfs status/, function(msg, match) {
+bot.onText(/\/ipfs status/, async function(msg, match) {
     chatId = msg.from.id;
 
     node.id().then(data => {
