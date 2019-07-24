@@ -74,24 +74,26 @@ bot.onText(/\/ipfs start/, function(msg, match) {
     })
 });
 
-const getSwarmPeers = async () => {
+const getSwarmPeers = async (detailed = false) => {
     try {
-        return await node.swarm.peers()
+        return await node.swarm.peers(detailed)
     } catch (err) {
         app.log(`An error occurred trying to check our peers: ${err}`)
         return [];
     }
 }
 
-const printPeers = async () => {
-    const peers = await getSwarmPeers();
+const printPeers = async (detailed = false) => {
+    const peers = await getSwarmPeers(detailed);
     app.log(`The node now has <b>${peers.length} peers</b>.`)
-    _.forEach(peers, (peer, i) => app.log(`<b>${peer.peer.toB58String()}</b>(${peer.addr.toString()})`))
+    if (detailed) {
+        _.forEach(peers, peer => app.log(`<b>${peer.peer.toB58String()}</b>(${peer.addr.toString()})`))
+    }
 }
 
 bot.onText(/\/ipfs peers/, async function(msg, match) {
     chatId = msg.from.id;
-    await printPeers();
+    await printPeers(true);
 });
 
 
