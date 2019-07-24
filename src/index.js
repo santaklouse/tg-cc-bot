@@ -36,7 +36,7 @@ bot.onText(/\/ipfs status/, function(msg, match) {
 
     node.id().then(data => {
         app.log(`IPFS uniq id: <b>${data.id}</b>`);
-        app.log(data);
+        app.log(JSON.stringify(data));
     });
 
     node.stats.bw((err, stats) => {
@@ -45,13 +45,13 @@ bot.onText(/\/ipfs status/, function(msg, match) {
         }
         app.log(`\nBandwidth Stats: ${JSON.stringify(stats, null, 2)}\n`)
     })
-    node.swarm.peers((err, peers) => {
-        if (err) {
-            app.log('An error occurred trying to check our peers:', err)
-            // process.exit(1);
-        }
-        app.log(`The node now has <b>${peers.length} peers</b>.`)
-    })
+    try {
+        const {peers} = await node.swarm.peers()
+    } catch (error) {
+        return app.log('An error occurred trying to check our peers:', err)
+    }
+    app.log(`The node now has <b>${peers.length} peers</b>.`)
+    _.forEach(peers, (peer, i) => app.log(`${i} <b>${peer.id}</b>.`))
 });
 
 bot.onText(/\/ipfs id/, function(msg, match) {
@@ -77,15 +77,16 @@ bot.onText(/\/ipfs start/, function(msg, match) {
     })
 });
 
-bot.onText(/\/ipfs peers/, function(msg, match) {
+bot.onText(/\/ipfs peers/, async function(msg, match) {
     chatId = msg.from.id;
-    node.swarm.peers((err, peers) => {
-        if (err) {
-            app.log('An error occurred trying to check our peers:', err)
-            // process.exit(1);
-        }
-        app.log(`The node now has <b>${peers.length} peers</b>.`)
-    })
+
+    try {
+        const {peers} = await node.swarm.peers()
+    } catch (error) {
+        return app.log('An error occurred trying to check our peers:', err)
+    }
+    app.log(`The node now has <b>${peers.length} peers</b>.`)
+    _.forEach(peers, (peer, i) => app.log(`${i} <b>${peer.id}</b>.`))
 });
 
 
