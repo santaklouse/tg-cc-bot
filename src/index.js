@@ -18,20 +18,16 @@ let app = {
 
 let node = ipfsNode.create();
 
-node.once('start', (err) => {
-        node.id().then(data => {
-            app.log(`start, node.id: ${data.id}`);
-        });
-    })
-    .on('ready', () => {
-        app.log('Node is ready to use!')
-    })
+node
+    .once('start', err => node.id().then(data => app.log(`started with node.id: ${data.id}`)))
+    .on('stop', () => app.log('Node stopped!'))
+    .on('ready', () => app.log('Node is ready to use!'))
     .on('error', error => {
-        app.log(`An error occurred: ${error}`)
-        console.error('Something went terribly wrong!')
+        app.log(`An error occurred: ${error}`);
+        console.error('Something went terribly wrong!');
         console.error(error)
-    })
-    .on('stop', () => app.log('Node stopped!'));
+    });
+
 
 bot.onText(/\/ipfs status/, async function(msg, match) {
     chatId = msg.from.id;
@@ -105,6 +101,7 @@ bot.onText(/\/ipfs peers/, async function(msg, match) {
 
 process.on('exit', (code) => {
     console.log(`exit: About to exit with code: ${code}`);
+    app.log(`<b>exit:</b> About to exit with code: <i>${code}</i>`)
     node.shutdown();
 });
 

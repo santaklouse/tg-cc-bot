@@ -49,7 +49,7 @@ bot.onText(/\/remind (.+) at (.+)/, function(msg, match) {
     var text = match[1];
     var time = match[2];
     notes.push({
-        'uid': userId,chrome,
+        'uid': userId,
         'time': time,
         'text': text
     });
@@ -66,7 +66,7 @@ setInterval(function() {
     for (let i = 0; i < notes.length; i++) {
         let curDate = `${new Date().getHours()}:${new Date().getMinutes()}`;
         if (notes[i]['time'] == curDate) {
-            bot.sendMessage(notes[i]['uid'], '<b>Remind:</b> \"' + notes[i]['text'] + '\" now.');
+            bot.sendMessage(notes[i]['uid'], '<b>Reminder:</b> \"' + notes[i]['text'] + '\" now.');
             notes.splice(i, 1);
         }
     }
