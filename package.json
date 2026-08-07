@@ -26,7 +26,7 @@
     "assert": "^2.0.0",
     "babel-preset-env": "^1.7.0",
     "dotenv": "^6.2.0",
-    "ipfs": "^0.40.0",
+    "ipfs": "^0.66.1",
     "libp2p": "^0.38.0",
     "libp2p-bootstrap": "^0.12.3",
     "libp2p-kad-dht": "^0.21.0",
@@ -47,7 +47,7 @@
     "shell-escape": "^0.2.0",
     "socksv5": "0.0.6",
     "websocket": "^1.0.28",
-    "wrtc": "^0.3.2"
+    "wrtc": "^0.4.7"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
