@@ -35,7 +35,7 @@
     "libp2p-secio": "^0.11.1",
     "libp2p-spdy": "^0.13.1",
     "libp2p-tcp": "^0.15.4",
-    "libp2p-webrtc-star": "^0.15.6",
+    "libp2p-webrtc-star": "^0.25.0",
     "libp2p-websocket-star": "^0.10.2",
     "multiaddr": "^6.0.0",
     "node-telegram-bot-api": "^0.30.0",
